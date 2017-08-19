@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  survey_ref: 
+  date: 
+  district: 
+  road_name: 
+  from: 
+  to: MyString
+  latitude: 
+  longitude: 
+  road_class: 
+  road_type: 
+  up_no_of_lanes: 
+  up_lane_width: 
+  up_distance_to_junction: 
+  up_junction_type: 
+  up_signalized: 
+  down_no_of_lanes: 
+  down_lane_width: 
+  down_distance_to_junction: 
+  down_junction_type: 
+  down_signalized: false
+
+two:
+  survey_ref: 
+  date: 
+  district: 
+  road_name: 
+  from: 
+  to: MyString
+  latitude: 
+  longitude: 
+  road_class: 
+  road_type: 
+  up_no_of_lanes: 
+  up_lane_width: 
+  up_distance_to_junction: 
+  up_junction_type: 
+  up_signalized: 
+  down_no_of_lanes: 
+  down_lane_width: 
+  down_distance_to_junction: 
+  down_junction_type: 
+  down_signalized: false

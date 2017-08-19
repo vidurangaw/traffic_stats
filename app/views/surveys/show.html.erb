@@ -1,0 +1,66 @@
+<%- model_class = Survey -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:survey_ref) %>:</strong></dt>
+  <dd><%= @survey.survey_ref %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
+  <dd><%= @survey.date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:district) %>:</strong></dt>
+  <dd><%= @survey.district.try(:humanize)%></dd>
+  <dt><strong><%= model_class.human_attribute_name(:road_name) %>:</strong></dt>
+  <dd><%= @survey.road_name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:from) %>:</strong></dt>
+  <dd><%= @survey.from %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:to) %>:</strong></dt>
+  <dd><%= @survey.to %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:latitude) %>:</strong></dt>
+  <dd><%= @survey.latitude %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:longitude) %>:</strong></dt>
+  <dd><%= @survey.longitude %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:road_class) %>:</strong></dt>
+  <dd><%= @survey.road_class %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:road_type) %>:</strong></dt>
+  <dd><%= @survey.road_type.try(:humanize) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:no_of_lanes) %>:</strong></dt>
+  <dd><%= @survey.no_of_lanes %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:lane_width) %>:</strong></dt>
+  <dd><%= @survey.lane_width.try(:humanize) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:shoulder_type) %>:</strong></dt>
+  <dd><%= @survey.shoulder_type.try(:humanize) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:shoulder_width) %>:</strong></dt>
+  <dd><%= @survey.shoulder_width %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:pavement_condition) %>:</strong></dt>
+  <dd><%= @survey.pavement_condition %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:built_environment) %>:</strong></dt>
+  <dd><%= @survey.built_environment %></dd>
+
+  <br>
+  <h4>Direction 1</h4>
+  <dt><strong>Distance to junction (km):</strong></dt>
+  <dd><%= @survey.up_distance_to_junction %></dd>
+  <dt><strong>Junction type:</strong></dt>
+  <dd><%= @survey.up_junction_type.humanize %></dd>
+  <dt><strong>Signalized:</strong></dt>
+  <dd><%= @survey.up_signalized ? "Yes" : "No" unless @survey.up_signalized.nil? %></dd>
+
+  <h4>Direction 2</h4>
+  <dt><strong>Distance to junction (km):</strong></dt>
+  <dd><%= @survey.down_distance_to_junction %></dd>
+  <dt><strong>Junction type:</strong></dt>
+  <dd><%= @survey.down_junction_type.humanize %></dd>
+  <dt><strong>Signalized:</strong></dt>
+  <dd><%= @survey.down_signalized ? "Yes" : "No" unless @survey.down_signalized.nil? %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              surveys_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_survey_path(@survey), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              survey_path(@survey),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

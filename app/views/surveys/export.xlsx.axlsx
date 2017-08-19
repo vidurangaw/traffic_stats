@@ -1,0 +1,100 @@
+wb = xlsx_package.workbook
+
+item_style = wb.styles.add_style :b => false, :sz => 11,  :font_name => 'Calibri',
+  :alignment => { :horizontal => :left, :vertical => :center, :wrap_text => true}
+
+wb.add_worksheet(:name => "Vertical 15 Mins") do |sheet|
+
+	headers = VehicleStat.column_names[5..19].map(&:humanize).unshift('Time')				
+	headers.push(*["Direction", "Road Name"])	
+	sheet.add_row headers, style: item_style
+
+	@surveys.each do |survey|				
+		up_vehicle_stats = survey.up_vehicle_stats
+		down_vehicle_stats = survey.down_vehicle_stats
+
+		up_vehicle_stats.each_with_index do |stat, i|
+			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			values = stat.attributes.values[5..19].unshift(time)
+			values += ["Direction 1", survey.road_name]
+
+			sheet.add_row values, style: item_style
+		end
+
+		down_vehicle_stats.each_with_index do |stat, i|
+			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			values = stat.attributes.values[5..19].unshift(time)			
+			values += ["Direction 2", survey.road_name]
+
+			sheet.add_row values, style: item_style
+		end
+	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10
+	end	
+end
+
+wb.add_worksheet(:name => "Horizontal 15 Mins") do |sheet|
+	headers = VehicleStat.column_names[5..19].map(&:humanize).unshift('Time')				
+	headers = headers + headers
+
+	headers.push(*["Road Name"])	
+	sheet.add_row headers, style: item_style
+
+	@surveys.each do |survey|				
+		up_vehicle_stats = survey.up_vehicle_stats
+		down_vehicle_stats = survey.down_vehicle_stats
+
+		up_data = {}
+		up_vehicle_stats.each_with_index do |stat, i|
+			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			values = stat.attributes.values[5..19].unshift(time)		
+			up_data[i]	= values
+		end
+
+		down_vehicle_stats.each_with_index do |stat, i|
+			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")			
+			values = stat.attributes.values[5..19].unshift(time)
+			values.push(survey.road_name)
+			if up_data[i].present?
+				values = up_data[i] + values
+			else
+				values = up_data[i] + ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+			end			
+			sheet.add_row values, style: item_style
+		end
+	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10
+	end	
+end
+
+
+wb.add_worksheet(:name => "Vertical 1 Hour") do |sheet|
+
+	headers = VehicleStat.column_names[5..19].map(&:humanize).unshift('Time')				
+	headers.push(*["Direction", "Road Name"])	
+	sheet.add_row headers, style: item_style
+
+	@surveys.each do |survey|				
+		up_vehicle_stats = survey.up_vehicle_stats
+		down_vehicle_stats = survey.down_vehicle_stats
+
+		up_vehicle_stats.each_with_index do |stat, i|
+			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			values = stat.attributes.values[5..19].unshift(time)
+
+
+			values += ["Direction 2", survey.road_name]
+
+			sheet.add_row values, style: item_style
+		end
+
+		down_vehicle_stats.each_with_index do |stat, i|
+			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			values = stat.attributes.values[5..19].unshift(time)			
+
+			values.push("Direction 2") 
+			values.push(survey.road_name)
+
+			#sheet.add_row values, style: item_style
+		end
+	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10
+	end	
+end
