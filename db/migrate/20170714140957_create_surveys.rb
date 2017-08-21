@@ -16,7 +16,7 @@ class CreateSurveys < ActiveRecord::Migration[5.0]
       t.string   :shoulder_type
       t.decimal  :shoulder_width, {:precision=>10, :scale=>3}
       t.string   :pavement_condition
-      t.string   :built_environment      
+      t.string   :built_environment     
       t.decimal  :up_distance_to_junction, {:precision=>10, :scale=>3}
       t.string   :up_junction_type
       t.boolean  :up_signalized, default: false      
