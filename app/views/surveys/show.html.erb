@@ -27,18 +27,30 @@
   <dt><strong><%= model_class.human_attribute_name(:no_of_lanes) %>:</strong></dt>
   <dd><%= @survey.no_of_lanes %></dd>
   <dt><strong><%= model_class.human_attribute_name(:lane_width) %>:</strong></dt>
-  <dd><%= @survey.lane_width.try(:humanize) %></dd>
+  <dd><%= @survey.lane_width %></dd>
   <dt><strong><%= model_class.human_attribute_name(:shoulder_type) %>:</strong></dt>
   <dd><%= @survey.shoulder_type.try(:humanize) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:shoulder_width) %>:</strong></dt>
   <dd><%= @survey.shoulder_width %></dd>
   <dt><strong><%= model_class.human_attribute_name(:pavement_condition) %>:</strong></dt>
-  <dd><%= @survey.pavement_condition %></dd>
+  <dd><%= @survey.pavement_condition.try(:humanize) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:built_environment) %>:</strong></dt>
-  <dd><%= @survey.built_environment %></dd>
+  <dd><%= @survey.built_environment.try(:humanize) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:row).upcase %>:</strong></dt>
+  <dd><%= @survey.row %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:speed_limit) %>:</strong></dt>
+  <dd><%= @survey.speed_limit %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ffs).upcase %>:</strong></dt>
+  <dd><%= @survey.ffs %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:traffic_composition) %>:</strong></dt>
+  <dd><%= @survey.traffic_composition.try(:humanize) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:access_point_density) %>:</strong></dt>
+  <dd><%= @survey.access_point_density.try(:humanize) %></dd>
 
   <br>
   <h4>Direction 1</h4>
+  <dt><strong>Grade:</strong></dt>
+  <dd><%= @survey.up_grade.try(:humanize)  %></dd>
   <dt><strong>Distance to junction (km):</strong></dt>
   <dd><%= @survey.up_distance_to_junction %></dd>
   <dt><strong>Junction type:</strong></dt>
@@ -47,6 +59,8 @@
   <dd><%= @survey.up_signalized ? "Yes" : "No" unless @survey.up_signalized.nil? %></dd>
 
   <h4>Direction 2</h4>
+  <dt><strong>Grade:</strong></dt>
+  <dd><%= @survey.down_grade.try(:humanize)  %></dd>
   <dt><strong>Distance to junction (km):</strong></dt>
   <dd><%= @survey.down_distance_to_junction %></dd>
   <dt><strong>Junction type:</strong></dt>

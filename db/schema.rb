@@ -27,14 +27,21 @@ ActiveRecord::Schema.define(version: 20170714141053) do
     t.string   "road_class"
     t.string   "road_type"
     t.integer  "no_of_lanes"
-    t.decimal  "lane_width",                precision: 10, scale: 3
+    t.decimal  "lane_width",                precision: 10, scale: 1
     t.string   "shoulder_type"
     t.decimal  "shoulder_width",            precision: 10, scale: 3
     t.string   "pavement_condition"
     t.string   "built_environment"
+    t.decimal  "row",                       precision: 10, scale: 1
+    t.integer  "speed_limit"
+    t.integer  "ffs"
+    t.string   "traffic_composition"
+    t.string   "access_point_density"
+    t.string   "up_grade"
     t.decimal  "up_distance_to_junction",   precision: 10, scale: 3
     t.string   "up_junction_type"
     t.boolean  "up_signalized",                                      default: false
+    t.string   "down_grade"
     t.decimal  "down_distance_to_junction", precision: 10, scale: 3
     t.string   "down_junction_type"
     t.boolean  "down_signalized",                                    default: false

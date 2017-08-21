@@ -70,7 +70,7 @@
   <div class="form-group">
     <%= f.label :road_type, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select(:road_type, ["Undivided", "Divided", "Median seperated", "One way" ].collect { |o| 
+      <%= f.select(:road_type, ["Undivided", "Divided", "Median seperated", "One way"].collect { |o| 
         [ o, o.parameterize.underscore ] }, {selected: @survey.road_type || "divided"}, {:class => 'form-control'}) %>
       <%=f.error_span(:road_type) %>
     </div>    
@@ -83,37 +83,80 @@
     </div>    
   </div>
   <div class="form-group">
+    <%= f.label :lane_width, "Lane width (m)", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :lane_width, :class => 'form-control' %>
+      <%=f.error_span(:lane_width) %>
+    </div>    
+  </div>
+  <div class="form-group">
     <%= f.label :shoulder_type, "Shoulder type", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.select(:shoulder_type, ["Curb", "Shoulder"].collect { |o| 
-        [ o, o.parameterize.underscore ] }, {selected: @survey.shoulder_type || "curb"}, {:class => 'form-control'}) %>
+        [ o, o.parameterize.underscore ] }, {include_blank: true}, {:class => 'form-control'}) %>
       <%=f.error_span(:shoulder_type) %>
     </div>    
   </div>
   <div class="form-group">
-    <%= f.label :shoulder_width, "Shoulder width", :class => 'control-label col-lg-2' %>
+    <%= f.label :shoulder_width, "Shoulder width (m)", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.text_field :shoulder_width, :class => 'form-control' %>
       <%=f.error_span(:shoulder_width) %>
     </div>    
   </div>
-
   <div class="form-group">
     <%= f.label :pavement_condition, "Pavement condition", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :pavement_condition, :class => 'form-control' %>
+      <%= f.select(:pavement_condition, ["Good", "Average", "Poor"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, {include_blank: true}, {:class => 'form-control'}) %>
       <%=f.error_span(:pavement_condition) %>
     </div>    
   </div>
-
   <div class="form-group">
     <%= f.label :built_environment, "Built environment", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :built_environment, :class => 'form-control' %>
+      <%= f.select(:built_environment, ["Urban", "Sub urban", "Rural"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, {include_blank: true}, {:class => 'form-control'}) %>
       <%=f.error_span(:built_environment) %>
     </div>    
   </div>
-  
+  <div class="form-group">
+    <%= f.label :row, "ROW", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :row, :class => 'form-control' %>
+      <%=f.error_span(:row) %>
+    </div>    
+  </div>
+  <div class="form-group">
+    <%= f.label :speed_limit, "Speed limit (km/h)", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select(:speed_limit, [70, 60, 50, 40] , {include_blank: true}, {:class => 'form-control'}) %>
+      <%=f.error_span(:speed_limit) %>
+    </div>    
+  </div>
+  <div class="form-group">
+    <%= f.label :ffs, "FFS", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :ffs, :class => 'form-control' %>
+      <%=f.error_span(:ffs) %>
+    </div>    
+  </div>
+  <div class="form-group">
+    <%= f.label :traffic_composition, "Traffic composition", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select(:traffic_composition, ["Type 1", "Type 2", "Type 3", "Type 4", "Type 5"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, {include_blank: true}, {:class => 'form-control'}) %>
+      <%=f.error_span(:traffic_composition) %>
+    </div>    
+  </div>
+  <div class="form-group">
+    <%= f.label :access_point_density, "Access point density", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select(:access_point_density, ["High", "Medium", "Low"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, {include_blank: true}, {:class => 'form-control'}) %>
+      <%=f.error_span(:access_point_density) %>
+    </div>    
+  </div>
   <div class="form-group">
     <%= f.label :vehicle_stat, "Vehicle stats", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
@@ -122,7 +165,16 @@
     </div>    
   </div>
 
+  <br>
   <h4>Direction 1</h4>    
+  <div class="form-group">
+    <%= f.label :up_grade, "Grade", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select(:up_grade, ['High +', 'Low +', 'High -', 'Low -' ].collect { |o| 
+        [ o, o.downcase.tr(" ", "_") ] }, {include_blank: true}, {:class => 'form-control'}) %>
+      <%=f.error_span(:up_grade) %>
+    </div>    
+  </div>
   <div class="form-group">
     <%= f.label :up_distance_to_junction, "Distance to junction (km)", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
@@ -146,7 +198,16 @@
     </div>    
   </div>
 
+  <br>
   <h4>Direction 2</h4>
+  <div class="form-group">
+    <%= f.label :down_grade, "Grade", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.select(:down_grade, ['High +', 'Low +', 'High -', 'Low -' ].collect { |o| 
+        [ o, o.downcase.tr(" ", "_") ] }, {include_blank: true}, {:class => 'form-control'}) %>
+      <%= f.error_span(:down_grade) %>
+    </div>    
+  </div>
   <div class="form-group">
     <%= f.label :down_distance_to_junction, "Distance to junction (km)", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">

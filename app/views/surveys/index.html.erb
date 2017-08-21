@@ -2,40 +2,12 @@
 <div class="page-header">
   <%= link_to t('.new', :default => "Create New"), new_survey_path, :class => 'btn btn-default create_new_button' %><br><br><br><br>
 
-  <%= form_tag(surveys_path, :method => "get", id: "search_form") do %>
-    <div class="form-group">
-      <%= text_field_tag :q, params[:q], placeholder: "Search Surveys", class: 'form-control' %>
-    </div>
-    <div class="form-group">  
-      <%= label_tag :from, nil %>
-      <%= text_field_tag :from, params[:from], :class => 'form-control date_select' %>
-    </div>
-    <div class="form-group">
-      <%= label_tag :to, nil %>
-      <%= text_field_tag :to, params[:to], :class => 'form-control date_select' %>   
-    </div>   
-    <div class="form-group">
-      <%= label_tag :district, nil %>  
-      <%= select_tag :district, options_for_select(["Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha""Hambantota", "Jaffna", "Kalutara""Kandy", "Kegalle""Kilinochchi", "Kurunegala", "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa""Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"].collect { |o| 
-      [ o, o.parameterize.underscore ] }, (params[:district] || "")), {include_blank: true, class: 'form-control'} %>
-    </div>       
-    <div class="form-group">
-      <%= label_tag :road_class, nil %>     
-      <%= select_tag :road_class, options_for_select(["AA", "AB", "AC", "B", "C", "D", "E", "Other"], params[:road_class] || ""), {include_blank: true, :class => 'form-control'} %>
-    </div> 
-    <div class="form-group">
-      <%= submit_tag "Search", :name => nil, class: "btn" %>
-    </div> 
-  <% end %>
-  <br>
-  <br>
 </div>
 
 <%= form_tag(export_surveys_path(format: "xlsx"), :method => "get", id: "export_form") do %>
   <table class="table table-striped">
     <thead>
       <tr>
-        <th></th>
         <th><%= model_class.human_attribute_name(:id) %></th>
         <th><%= model_class.human_attribute_name(:survey_ref) %></th>
         <th><%= model_class.human_attribute_name(:date) %></th>
@@ -51,7 +23,6 @@
     <tbody>
       <% @surveys.each do |survey| %>
         <tr>
-          <td><%= check_box_tag 'survey_ids[]', survey.id, false %></td>
           <td><%= link_to survey.id, survey_path(survey) %></td>
           <td><%= survey.survey_ref %></td>
           <td><%= survey.date %></td>
@@ -59,7 +30,7 @@
           <td><%= survey.road_name %></td>
           <td><%= survey.from %></td>
           <td><%= survey.to %></td>
-          <td><%= survey.road_class.humanize %></td>
+          <td><%= survey.road_class %></td>
           <td><%= survey.road_type.humanize %></td>
           <td>
             <%= link_to t('.show', :default => t("helpers.links.show")),
@@ -77,6 +48,4 @@
     </tbody>
   </table> 
 
-  <br><br>
-  <%= submit_tag "Download", class: "btn", data: { disable_with: false } %>
 <% end %>

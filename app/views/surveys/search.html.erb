@@ -1,0 +1,165 @@
+<%- model_class = Survey -%>
+<div class="page-header">
+  <%= form_tag(search_surveys_path, :method => "get", id: "search_form") do %>
+    <div class="form-group">
+      <h4>Search</h4>
+      <div class="row">
+        <div class="col-md-3"><%= text_field_tag :q, params[:q], class: 'form-control' %></div>
+      </div>
+    </div>
+    
+    <h4>Filters</h4>
+    <div class="form-group">  
+
+      <%= label_tag nil, "Date Range" %>
+      <div class="row">
+        <div class="col-md-2"><%= text_field_tag :date_from, params[:from], :class => 'form-control date_select' %></div>
+        <div class="col-md-2"><%= text_field_tag :date_to, params[:to], :class => 'form-control date_select' %></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= label_tag :district, nil %>  
+      <%= select_tag :district, options_for_select(["Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha""Hambantota", "Jaffna", "Kalutara""Kandy", "Kegalle""Kilinochchi", "Kurunegala", "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa""Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"].collect { |o| 
+      [ o, o.parameterize.underscore ] }, (params[:district])), {include_blank: true, class: 'form-control'} %>
+    </div>   
+
+    <div class="form-group">
+      <%= label_tag :road_class, nil %>     
+      <%= select_tag :road_class, options_for_select(["AA", "AB", "AC", "B", "C", "D", "E", "Other"], (params[:road_class])), {include_blank: true, :class => 'form-control'} %>
+    </div> 
+
+    <div class="form-group">
+      <%= label_tag :road_type, nil %>     
+      <%= select_tag :road_type, options_for_select(["Undivided", "Divided", "Median seperated", "One way"].collect { |o| 
+      [ o, o.parameterize.underscore ] }, (params[:road_type])), {include_blank: true, :class => 'form-control'} %>
+    </div> 
+
+    <div class="form-group">
+      <%= label_tag :no_of_lanes, nil %>     
+      <%= select_tag :no_of_lanes, options_for_select([1, 2, 3, 4], params[:no_of_lanes]), {include_blank: true, :class => 'form-control'} %>
+    </div> 
+
+    <div class="form-group">
+      <%= label_tag nil, "Lane Width Range (m)" %>
+      <div class="row">
+        <div class="col-md-1"><%= text_field_tag :lane_width_from, params[:lane_width_from], :class => 'form-control' %></div>
+        <div class="col-md-1"><%= text_field_tag :lane_width_to, params[:lane_width_to], :class => 'form-control' %></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :shoulder_type, nil %>     
+      <%= select_tag :shoulder_type, options_for_select(["Undivided", "Divided", "Median seperated", "One way"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, (params[:shoulder_type])), {include_blank: true, :class => 'form-control'} %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag nil, "Shoulder Width Range (m)" %>
+      <div class="row">
+        <div class="col-md-1"><%= text_field_tag :shoulder_width_from, params[:shoulder_width_from], :class => 'form-control' %></div>
+        <div class="col-md-1"><%= text_field_tag :shoulder_width_to, params[:shoulder_width_to], :class => 'form-control' %></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :pavement_condition, nil %> 
+      <%= select_tag :pavement_condition, options_for_select(["Good", "Average", "Poor", "One way"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, (params[:pavement_condition])), {include_blank: true, :class => 'form-control'} %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :built_environment%> 
+      <%= select_tag :built_environment, options_for_select(["Urban", "Sub urban", "Rural"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, (params[:built_environment])), {include_blank: true, :class => 'form-control'} %> 
+    </div>
+
+    <div class="form-group">
+      <%= label_tag nil, "ROW Range" %>
+      <div class="row">
+        <div class="col-md-1"><%= text_field_tag :row_from, params[:row_from], :class => 'form-control' %></div>
+        <div class="col-md-1"><%= text_field_tag :row_to, params[:row_to], :class => 'form-control' %></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :speed_limit %>
+      <%= select_tag :speed_limit, options_for_select([70, 60, 50, 40], params[:speed_limit]), {include_blank: true, :class => 'form-control'} %> 
+    </div>
+
+    <div class="form-group">
+      <%= label_tag nil, "FFS Range" %>
+      <div class="row">
+        <div class="col-md-1"><%= text_field_tag :ffs_from, params[:ffs_from], :class => 'form-control' %></div>
+        <div class="col-md-1"><%= text_field_tag :ffs_to, params[:ffs_to], :class => 'form-control' %></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :traffic_composition %> 
+      <%= select_tag :traffic_composition, options_for_select(["Type 1", "Type 2", "Type 3", "Type 4", "Type 5"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, (params[:traffic_composition])), {include_blank: true, :class => 'form-control'} %>
+    </div>    
+  
+    <div class="form-group">
+      <%= label_tag :access_point_density %> 
+      <%= select_tag :access_point_density, options_for_select(["High", "Medium", "Low"].collect { |o| 
+        [ o, o.parameterize.underscore ] }, (params[:access_point_density])), {include_blank: true, :class => 'form-control'} %>
+    </div>
+
+    <div class="form-group">
+      <%= submit_tag "Search", :name => nil, class: "btn" %>
+    </div> 
+  <% end %>
+  <br>
+  <br>
+</div>
+
+<%= form_tag(export_surveys_path(format: "xlsx"), :method => "get", id: "export_form") do %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th><%= model_class.human_attribute_name(:id) %></th>
+        <th><%= model_class.human_attribute_name(:survey_ref) %></th>
+        <th><%= model_class.human_attribute_name(:date) %></th>
+        <th><%= model_class.human_attribute_name(:district) %></th>
+        <th><%= model_class.human_attribute_name(:road_name) %></th>
+        <th><%= model_class.human_attribute_name(:from) %></th>
+        <th><%= model_class.human_attribute_name(:to) %></th>
+        <th><%= model_class.human_attribute_name(:road_class) %></th>
+        <th><%= model_class.human_attribute_name(:road_type) %></th>      
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @surveys.each do |survey| %>
+        <tr>
+          <td><%= check_box_tag 'survey_ids[]', survey.id, false %></td>
+          <td><%= link_to survey.id, survey_path(survey) %></td>
+          <td><%= survey.survey_ref %></td>
+          <td><%= survey.date %></td>
+          <td><%= survey.district.humanize %></td>
+          <td><%= survey.road_name %></td>
+          <td><%= survey.from %></td>
+          <td><%= survey.to %></td>
+          <td><%= survey.road_class %></td>
+          <td><%= survey.road_type.humanize %></td>
+          <td>
+            <%= link_to t('.show', :default => t("helpers.links.show")),
+                        survey_path(survey), :class => 'btn btn-default btn-xs' %>
+            <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                        edit_survey_path(survey), :class => 'btn btn-default btn-xs' %>
+            <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                        survey_path(survey),
+                        :method => :delete,
+                        :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                        :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table> 
+
+  <br><br>
+  <%= submit_tag "Download", class: "btn", data: { disable_with: false } %>
+<% end %>
