@@ -29,7 +29,6 @@ append :linked_files, 'config/database.yml'
 
 set :linked_dirs, %w(tmp/pids)
 
-#set :bundle_gemfile, "traffic_stats/Gemfile"
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
