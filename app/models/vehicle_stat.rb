@@ -2,6 +2,8 @@ class VehicleStat < ApplicationRecord
 	require 'roo'
  	self.inheritance_column = "_type"
 
+  default_scope { order(id: :asc) }
+
  	belongs_to :survey
 
 	def self.import(survey, file)
