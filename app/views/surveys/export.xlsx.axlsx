@@ -14,7 +14,7 @@ wb.add_worksheet(:name => "Vertical 15 Mins") do |sheet|
 		down_vehicle_stats = survey.down_vehicle_stats
 
 		up_vehicle_stats.each_with_index do |stat, i|
-			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			time = stat.from.strftime("%H.%M") + " - " + stat.to.strftime("%H.%M")
 			values = stat.attributes.values[5..19].unshift(time)
 			values += ["Direction 1", survey.road_name]
 
@@ -22,7 +22,7 @@ wb.add_worksheet(:name => "Vertical 15 Mins") do |sheet|
 		end
 
 		down_vehicle_stats.each_with_index do |stat, i|
-			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			time = stat.from.strftime("%H.%M") + " - " + stat.to.strftime("%H.%M")
 			values = stat.attributes.values[5..19].unshift(time)			
 			values += ["Direction 2", survey.road_name]
 
@@ -45,13 +45,13 @@ wb.add_worksheet(:name => "Horizontal 15 Mins") do |sheet|
 
 		up_data = {}
 		up_vehicle_stats.each_with_index do |stat, i|
-			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")
+			time = stat.from.strftime("%H.%M") + " - " + stat.to.strftime("%H.%M")
 			values = stat.attributes.values[5..19].unshift(time)		
 			up_data[i]	= values
 		end
 
 		down_vehicle_stats.each_with_index do |stat, i|
-			time = stat.from.strftime("%I.%M") + " - " + stat.to.strftime("%I.%M")			
+			time = stat.from.strftime("%H.%M") + " - " + stat.to.strftime("%H.%M")			
 			values = stat.attributes.values[5..19].unshift(time)
 			values.push(survey.road_name)
 			if up_data[i].present?
@@ -82,7 +82,7 @@ wb.add_worksheet(:name => "Vertical 1 Hour") do |sheet|
 			 	values_array.push(stat.attributes.values[5..19])
 			end 
 			values = values_array.transpose.map {|x| x.map(&:to_i).reduce(:+)}
-			time = slice.first.from.strftime("%I.%M") + " - " + slice.last.to.strftime("%I.%M")
+			time = slice.first.from.strftime("%H.%M") + " - " + slice.last.to.strftime("%H.%M")
 			values = values.unshift(time)
 			values += ["Direction 1", survey.road_name]
 
@@ -95,7 +95,7 @@ wb.add_worksheet(:name => "Vertical 1 Hour") do |sheet|
 			 	values_array.push(stat.attributes.values[5..19])
 			end 
 			values = values_array.transpose.map {|x| x.map(&:to_i).reduce(:+)}
-			time = slice.first.from.strftime("%I.%M") + " - " + slice.last.to.strftime("%I.%M")
+			time = slice.first.from.strftime("%H.%M") + " - " + slice.last.to.strftime("%H.%M")
 			values = values.unshift(time)
 			values += ["Direction 2", survey.road_name]
 
@@ -123,7 +123,7 @@ wb.add_worksheet(:name => "Horizontal 1 Hour") do |sheet|
 			 	values_array.push(stat.attributes.values[5..19])
 			end 
 			values = values_array.transpose.map {|x| x.map(&:to_i).reduce(:+)}
-			time = slice.first.from.strftime("%I.%M") + " - " + slice.last.to.strftime("%I.%M")
+			time = slice.first.from.strftime("%H.%M") + " - " + slice.last.to.strftime("%H.%M")
 			values = values.unshift(time)
             
             up_data[i] = values
@@ -135,7 +135,7 @@ wb.add_worksheet(:name => "Horizontal 1 Hour") do |sheet|
 			 	values_array.push(stat.attributes.values[5..19])
 			end 
 			values = values_array.transpose.map {|x| x.map(&:to_i).reduce(:+)}
-			time = slice.first.from.strftime("%I.%M") + " - " + slice.last.to.strftime("%I.%M")
+			time = slice.first.from.strftime("%H.%M") + " - " + slice.last.to.strftime("%H.%M")
 			values = values.unshift(time)
             values.push(survey.road_name)
 
