@@ -19,7 +19,7 @@
   <div class="form-group">
     <%= f.label :district, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.select(:district, ["Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha""Hambantota", "Jaffna", "Kalutara""Kandy", "Kegalle""Kilinochchi", "Kurunegala", "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa""Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"].collect { |o| 
+      <%= f.select(:district, ["Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara", "Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"].collect { |o| 
         [ o, o.parameterize.underscore ] }, {selected: @survey.district || 'colombo'}, {:class => 'form-control'}) %>
         <%=f.error_span(:district) %>
     </div>    
