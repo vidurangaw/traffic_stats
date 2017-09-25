@@ -1,8 +1,9 @@
 <%- model_class = Survey -%>
 <div class="page-header">
   <%= link_to t('.new', :default => "Create New"), new_survey_path, :class => 'btn btn-default create_new_button' %><br><br><br><br>
-
+  <%= page_entries_info @surveys %><br><br>
 </div>
+  
 
 <%= form_tag(export_surveys_path(format: "xlsx"), :method => "get", id: "export_form") do %>
   <table class="table table-striped">
@@ -47,5 +48,5 @@
       <% end %>
     </tbody>
   </table> 
-
+  <%= will_paginate @surveys %>
 <% end %>

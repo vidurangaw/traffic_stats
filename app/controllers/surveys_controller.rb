@@ -4,7 +4,7 @@ class SurveysController < ApplicationController
   # GET /surveys
   # GET /surveys.json
   def index
-    @surveys = Survey.all
+    @surveys = Survey.paginate(:page => params[:page], :per_page => params[:per_page] || 20)
   end
 
   def search
