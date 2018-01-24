@@ -16,7 +16,7 @@ wb.add_worksheet(:name => "Vertical 15 Mins") do |sheet|
 		up_vehicle_stats.each_with_index do |stat, i|
 			time = stat.from.strftime("%H.%M") + " - " + stat.to.strftime("%H.%M")
 			values = stat.attributes.values[5..19].unshift(time)
-			values += ["Direction 1", survey.road_name]
+			values += ["Direction 1", survey.road_name, survey.survey_ref]
 
 			sheet.add_row values, style: item_style
 		end
@@ -24,7 +24,7 @@ wb.add_worksheet(:name => "Vertical 15 Mins") do |sheet|
 		down_vehicle_stats.each_with_index do |stat, i|
 			time = stat.from.strftime("%H.%M") + " - " + stat.to.strftime("%H.%M")
 			values = stat.attributes.values[5..19].unshift(time)			
-			values += ["Direction 2", survey.road_name]
+			values += ["Direction 2", survey.road_name, survey.survey_ref]
 
 			sheet.add_row values, style: item_style
 		end
