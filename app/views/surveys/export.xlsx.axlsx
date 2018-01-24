@@ -6,7 +6,7 @@ item_style = wb.styles.add_style :b => false, :sz => 11,  :font_name => 'Calibri
 wb.add_worksheet(:name => "Vertical 15 Mins") do |sheet|
 
 	headers = VehicleStat.column_names[5..19].map(&:humanize).unshift('Time')				
-	headers.push(*["Direction", "Road Name"])	
+	headers.push(*["Direction", "Road Name", "Survey Ref"])	
 	sheet.add_row headers, style: item_style
 
 	@surveys.each do |survey|				
@@ -29,14 +29,14 @@ wb.add_worksheet(:name => "Vertical 15 Mins") do |sheet|
 			sheet.add_row values, style: item_style
 		end
 	end	
-	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10
+	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10, 10
 end
 
 wb.add_worksheet(:name => "Horizontal 15 Mins") do |sheet|
 	headers = VehicleStat.column_names[5..19].map(&:humanize).unshift('Time')				
 	headers = headers + headers
 
-	headers.push(*["Road Name"])	
+	headers.push(*["Road Name", "Survey Ref"])	
 	sheet.add_row headers, style: item_style
 
 	@surveys.each do |survey|				
@@ -53,7 +53,7 @@ wb.add_worksheet(:name => "Horizontal 15 Mins") do |sheet|
 		down_vehicle_stats.each_with_index do |stat, i|
 			time = stat.from.strftime("%H.%M") + " - " + stat.to.strftime("%H.%M")			
 			values = stat.attributes.values[5..19].unshift(time)
-			values.push(survey.road_name)
+      values += [survey.road_name, survey.survey_ref]
 			if up_data[i].present?
 				values = up_data[i] + values
 			else
@@ -62,14 +62,14 @@ wb.add_worksheet(:name => "Horizontal 15 Mins") do |sheet|
 			sheet.add_row values, style: item_style
 		end	
 	end	
-	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10
+	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10
 end
 
 
 wb.add_worksheet(:name => "Vertical 1 Hour") do |sheet|
 
 	headers = VehicleStat.column_names[5..19].map(&:humanize).unshift('Time')				
-	headers.push(*["Direction", "Road Name"])	
+	headers.push(*["Direction", "Road Name", "Survey Ref"])	
 	sheet.add_row headers, style: item_style
 
 	@surveys.each do |survey|				
@@ -84,7 +84,7 @@ wb.add_worksheet(:name => "Vertical 1 Hour") do |sheet|
 			values = values_array.transpose.map {|x| x.map(&:to_i).reduce(:+)}
 			time = slice.first.from.strftime("%H.%M") + " - " + slice.last.to.strftime("%H.%M")
 			values = values.unshift(time)
-			values += ["Direction 1", survey.road_name]
+			values += ["Direction 1", survey.road_name, survey.survey_ref]
 
 			sheet.add_row values, style: item_style
 		end
@@ -97,19 +97,19 @@ wb.add_worksheet(:name => "Vertical 1 Hour") do |sheet|
 			values = values_array.transpose.map {|x| x.map(&:to_i).reduce(:+)}
 			time = slice.first.from.strftime("%H.%M") + " - " + slice.last.to.strftime("%H.%M")
 			values = values.unshift(time)
-			values += ["Direction 2", survey.road_name]
+			values += ["Direction 2", survey.road_name, survey.survey_ref]
 
 			sheet.add_row values, style: item_style
 		end
 	end	
-	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10
+	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10, 10
 end
 
 wb.add_worksheet(:name => "Horizontal 1 Hour") do |sheet|
     headers = VehicleStat.column_names[5..19].map(&:humanize).unshift('Time')				
 	headers = headers + headers
 
-	headers.push(*["Road Name"])	
+	headers.push(*["Road Name", "Survey Ref"])	
 	sheet.add_row headers, style: item_style
 
 	@surveys.each do |survey|				
@@ -137,7 +137,7 @@ wb.add_worksheet(:name => "Horizontal 1 Hour") do |sheet|
 			values = values_array.transpose.map {|x| x.map(&:to_i).reduce(:+)}
 			time = slice.first.from.strftime("%H.%M") + " - " + slice.last.to.strftime("%H.%M")
 			values = values.unshift(time)
-            values.push(survey.road_name)
+      values += [survey.road_name, survey.survey_ref]
 
 			if up_data[i].present?
 				values = up_data[i] + values
@@ -147,5 +147,5 @@ wb.add_worksheet(:name => "Horizontal 1 Hour") do |sheet|
 			sheet.add_row values, style: item_style
 		end
 	end	
-	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10
+	sheet.column_widths 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10
 end
