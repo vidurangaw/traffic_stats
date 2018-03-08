@@ -2,8 +2,8 @@ class Survey < ApplicationRecord
 	require 'axlsx'
 	include PgSearch
 
-	has_many :up_vehicle_stats, -> { where type: :up }, class_name: 'VehicleStat'
-	has_many :down_vehicle_stats, -> { where type: :down }, class_name: 'VehicleStat'
+	has_many :up_vehicle_stats, -> { where type: :up }, class_name: 'VehicleStat', dependent: :destroy
+	has_many :down_vehicle_stats, -> { where type: :down }, class_name: 'VehicleStat', dependent: :destroy
 
 	validates_presence_of :date, :district, :road_name, :from, :to, :road_class, :road_type, :no_of_lanes
 
