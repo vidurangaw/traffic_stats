@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
       <%= label_tag :district, nil %>  
-      <%= select_tag :district, options_for_select(["Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha""Hambantota", "Jaffna", "Kalutara""Kandy", "Kegalle""Kilinochchi", "Kurunegala", "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa""Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"].collect { |o| 
+      <%= select_tag :district, options_for_select(["Ampara", "Anuradhapura", "Badulla", "Batticaloa", "Colombo", "Galle", "Gampaha", "Hambantota", "Jaffna", "Kalutara""Kandy", "Kegalle", "Kilinochchi", "Kurunegala", "Mannar", "Matale", "Matara", "Moneragala", "Mullaitivu", "Nuwara Eliya", "Polonnaruwa", "Puttalam", "Ratnapura", "Trincomalee", "Vavuniya"].collect { |o| 
       [ o, o.parameterize.underscore ] }, (params[:district])), {include_blank: true, class: 'form-control'} %>
     </div>   
 
